@@ -6,6 +6,7 @@ require 'nmea_parser'
 require 'run_every'
 require 'serialport'
 
+
 class SerialPortGPS
 
   attr_reader :time, :latitude, :longitude, :to_h
@@ -22,19 +23,14 @@ class SerialPortGPS
     @callback = callback
 
     #params for serial port    
-    @port = port
-    @baud_rate = baud_rate
-    @data_bits = 8
-    @stop_bits = 1
-    @parity = SerialPort::NONE
-
+    @port, @baud_rate, @data_bits, @stop_bits, @parity = port, baud_rate, 
+                                                         8, 1, SerialPort::NONE
     @np = NMEAParser.new
   end
 
   def start
 
     @running = true
-    #sp = @sp
 
     RunEvery.new(seconds: @refresh_rate) do 
 
@@ -46,26 +42,22 @@ class SerialPortGPS
         sleep 4
         s = ''
 
-        (s = sp.gets; @np.parse(s.scrub)) until s =~ /^\$GPGGA/
+        (s = sp.gets.scrub; @np.parse(s)) until s =~ /^\$GPGGA/
+        sp.close
 
       rescue
-        puts 'warning: ' +($!).inspect
+        puts 'warning: ' + ($!).inspect
         retry
       end
 
-      sp.close
-
-      @time, @latitude, @longitude = @np.time, @np.latitude, @np.longitude
-      @to_h = @np.to_h
+      @time, @latitude, @longitude, @to_h = @np.time, @np.latitude, 
+                                                        @np.longitude, @np.to_h
       @callback.call
     end
   end
 
-
   def stop()
-
     @running = false
-
   end
 
 end

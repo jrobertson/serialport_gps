@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name = 'serialport_gps'
-  s.version = '0.1.1'
+  s.version = '0.1.2'
   s.summary = 'Fetches, and converts GPS coordinates using the SerialPort gem.'
   s.authors = ['James Robertson']
   s.files = Dir['lib/**/*.rb']
-  s.add_dependency('nmea_parser')
-  s.add_dependency('run_every')
-  s.add_dependency('serialport')
+  s.add_runtime_dependency('nmea_parser', '~> 0.1', '>=0.1.4')
+  s.add_runtime_dependency('run_every', '~> 0.1', '>=0.1.9')
+  s.add_runtime_dependency('serialport', '~> 1.3', '>=1.3.0')
   s.signing_key = '../privatekeys/serialport_gps.pem'
   s.cert_chain  = ['gem-public_cert.pem']
   s.license = 'MIT'

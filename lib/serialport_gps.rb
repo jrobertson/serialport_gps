@@ -32,7 +32,7 @@ class SerialPortGPS
 
     @running = true
 
-    RunEvery.new(seconds: @refresh_rate) do 
+    RunEvery.new(seconds: @refresh_rate, thread_name: 'GPS listener') do 
 
       Thread.stop unless @running
 
