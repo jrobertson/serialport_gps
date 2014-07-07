@@ -12,7 +12,7 @@ class SerialPortGPS
   attr_reader :time, :latitude, :longitude, :to_h
 
   def initialize(port: "/dev/ttyAMA0", baud_rate: 9600, 
-                refresh_rate: 8, callback: Proc.new {puts self.to_h.inspect})
+                refresh_rate: 8, callback: ->(gps){ puts gps.to_h.inspect})
 
 
     # if the refresh rate is any less than 8 seconds the serial connection
@@ -52,7 +52,7 @@ class SerialPortGPS
 
       @time, @latitude, @longitude, @to_h = @np.time, @np.latitude, 
                                                         @np.longitude, @np.to_h
-      @callback.call
+      @callback.call self
     end
   end
 

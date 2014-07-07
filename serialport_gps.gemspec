@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'serialport_gps'
-  s.version = '0.1.2'
+  s.version = '0.1.3'
   s.summary = 'Fetches, and converts GPS coordinates using the SerialPort gem.'
   s.authors = ['James Robertson']
   s.files = Dir['lib/**/*.rb']
