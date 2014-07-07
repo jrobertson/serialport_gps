@@ -26,6 +26,30 @@ Output:
 
 There is a callback proc which can be passed in at initialization which is triggered when new GPS data has arrived. The default callback which can be seen from the output above is used for testing purposes, as well as demonstrating what the gem outputs.
 
+## Using a callback
+
+    require 'serialport_gps'
+     
+
+    gps_notification = lambda do |x|
+      puts "%-13s %-12s, %-12s" % 
+                           [x.time.strftime("%H:%M:%S%P"), x.latitude, x.longitude]
+    end
+
+    gps = SerialPortGPS.new callback: gps_notification
+    gps.start
+
+output:
+
+<pre>
+GPS listener starting ...
+GPS listener created
+
+09:08:01am    55.94625383 , -3.1169905  
+09:08:09am    55.9462515  , -3.11973   
+09:08:17am    55.94624667 , -3.116976
+</pre>
+
 ## Resources
 
 * [Introducing the NMEA parser gem](http://www.jamesrobertson.eu/snippets/2014/jul/05/introducing-the-nmea-parser-gem.html)
