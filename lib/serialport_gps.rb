@@ -18,6 +18,7 @@ class SerialPortGPS
     # if the refresh rate is any less than 8 seconds the serial connection
     # will have a higher probability of containing corrupted data
 
+    refresh_rate ||= 8
     refresh_rate = 8 if refresh_rate < 8
     @refresh_rate = refresh_rate - 4
     @callback = callback

@@ -52,7 +52,7 @@ class SerialPortGPS
 
       @time, @latitude, @longitude, @to_h = @np.time, @np.latitude, 
                                                         @np.longitude, @np.to_h
-      @callback.call self
+      @callback.call @np.to_struct
     end
   end
 
